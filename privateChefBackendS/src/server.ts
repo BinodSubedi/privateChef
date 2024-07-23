@@ -1,11 +1,12 @@
-import express from 'express';
+import express from "express";
+import env from "./config";
 
 const app = express();
 
-app.use(express.json())
+app.use(express.json());
 
-const port = process.env.PORT || 5000
+const port = env.port;
 
-app.listen(port,()=>{
-    console.log(`Server is listening at port ${port}....`)
-})
+app.listen(port, () => {
+  console.log(`Server is listening at port ${port}....`);
+});

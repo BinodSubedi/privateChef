@@ -7,14 +7,13 @@ import {
 } from "llamaindex";
 
 Settings.llm = new Ollama({
-  model: "llama3",
+  model: "llama3.1",
 });
 Settings.embedModel = new Ollama({
   model: "all-minilm",
 });
 
-const path =
-  "C:/Users/Binod Subedi/OneDrive/Documents/PrivateChefAll/privateChefBackendS/testFile";
+const path = "./testFiles";
 
 const checkEmbed = async (req: Request, res: Response) => {
   const reader = new SimpleDirectoryReader();

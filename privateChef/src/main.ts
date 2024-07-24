@@ -1,3 +1,4 @@
-import "./style.css";
+// import "./style.css";
+import HomePageRenderer from "./HomePage";
 
-document.querySelector<HTMLDivElement>("#app")!.innerHTML = "";
+HomePageRenderer();

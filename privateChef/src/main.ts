@@ -1,4 +1,7 @@
-// import "./style.css";
-import HomePageRenderer from "./HomePage";
+import { loadContent } from "./Router";
 
-HomePageRenderer();
+loadContent(window.location.pathname);
+
+window.onpopstate = () => {
+  loadContent(window.location.pathname);
+};

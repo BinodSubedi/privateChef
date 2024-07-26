@@ -1,0 +1,112 @@
+@import "./default";
+
+main {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: purple;
+}
+
+.left-right__container {
+  height: 78%;
+  width: 55%;
+  border: 0.1rem beige solid;
+  border-radius: 0.4rem;
+  display: flex;
+}
+
+.left__side {
+  width: 55%;
+  height: 100%;
+  border-right: 0.1rem beige solid;
+  background-position: center;
+  background-size: cover;
+}
+
+.right__side {
+  overflow-x: hidden;
+  width: 45%;
+  height: 100%;
+  background-color: #879a77;
+}
+
+.login__signup-all {
+  width: 200%;
+  height: 100%;
+  display: flex;
+}
+
+.signup__container {
+  width: 50%;
+  height: 100%;
+}
+
+.login__container {
+  width: 50%;
+  height: 100%;
+}
+
+.signup__container,
+.login__container {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  h1 {
+    padding-top: 3rem;
+  }
+}
+
+.login__inner,
+.signup__inner {
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.login__label-input,
+.signup__label-input {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.label__input {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin-bottom: 1rem;
+  }
+  input {
+    border-radius: 0.3rem;
+    border: none;
+    padding: 0.12rem 0.4rem;
+    letter-spacing: 0.1rem;
+  }
+}
+
+.login__login-signup,
+.signup__signup-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  button {
+    margin-bottom: 0.6rem;
+    padding: 0.3rem 1rem;
+    border-radius: 0.3rem;
+    border: none;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}

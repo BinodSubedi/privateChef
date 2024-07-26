@@ -2,19 +2,30 @@ import Features from "./Features";
 import Footer from "./Footer";
 import Header from "./Header";
 import Home from "./Home";
-import "./../style/homePage.css";
+import { navigate } from "../Router";
 
 const HomePage = () => {
-  document.querySelector(".header")!.innerHTML = Header();
-  document.querySelector(
-    ".main__container"
-  )!.innerHTML = `${Home()} ${Features()}`;
-  document.querySelector(".footer")!.innerHTML = Footer();
-
-  //setting background image in header logo section
-
-  const element: HTMLDivElement = document.querySelector("#logo")!;
-  element.style.backgroundImage = "url('./icons/chef.png')";
+  return {
+    content: `
+      <header class="header">
+      ${Header()}
+      </header>
+      <main class="main__container">
+      ${Home()}
+      ${Features()}
+      </main>
+      <footer class="footer">
+      ${Footer()}
+      </footer>
+  `,
+    eventIntializer: () => {
+      const join: HTMLDivElement | null = document.querySelector("#join-us");
+      join!.addEventListener("click", (e: MouseEvent) => {
+        navigate(e, "/setup");
+      });
+    },
+    css: "./src/style/homePage.css",
+  };
 };
 
 export default HomePage;

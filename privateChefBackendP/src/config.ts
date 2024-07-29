@@ -8,6 +8,10 @@ dotenv.config({
 
 const env = {
   port: process.env.PORT,
+  jwt: {
+    secret: process.env.JWT_SECRET,
+    expires: process.env.JWT_EXPIRES_IN,
+  },
   db_port: +process.env.DB_PORT!,
   host: process.env.DB_HOST,
   db: process.env.DATABASE,

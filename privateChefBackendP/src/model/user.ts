@@ -9,6 +9,27 @@ class UserModel extends BaseModel {
       password: user.password,
     };
 
-    await this.queryBuilder().insert(userToCreate).table("users");
+    await this.queryBuilder().insert(userToCreate).table("User");
+  }
+
+  static async getUser(userName: String) {
+    const user = await this.queryBuilder()
+      .select("*")
+      .where({ userName })
+      .table("User")
+      .first();
+
+    return user;
+  }
+
+  static async checkUserExistence(userName: String) {
+    const user = await this.queryBuilder()
+      .select("*")
+      .where({ userName })
+      .table("User");
+
+    return user.length == 1 ? true : false;
   }
 }
+
+export default UserModel;

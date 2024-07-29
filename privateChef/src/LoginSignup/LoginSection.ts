@@ -17,7 +17,7 @@ const Login = () => {
 
     <div class="login__login-signup">
       <button>Login</button>
-      <a href="#">Signup?</a>
+      <a href="#" id="toSignup">Signup?</a>
     </div>
   </div>
 </div> 

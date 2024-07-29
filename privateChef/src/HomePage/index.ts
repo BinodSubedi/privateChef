@@ -18,7 +18,7 @@ const HomePage = () => {
       ${Footer()}
       </footer>
   `,
-    eventIntializer: () => {
+    eventInitializer: () => {
       const join: HTMLDivElement | null = document.querySelector("#join-us");
       join!.addEventListener("click", (e: MouseEvent) => {
         navigate(e, "/setup");

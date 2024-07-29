@@ -1,9 +1,11 @@
 import HomePage from "../HomePage";
 import LoginSignup from "../LoginSignup";
+import UserPage from "../UserPage";
 
 const routes: Map<string, any> = new Map();
 routes.set("/", HomePage());
 routes.set("/setup", LoginSignup());
+routes.set("/home", UserPage());
 
 export const navigate = (event: MouseEvent, path: string) => {
   event.preventDefault();
@@ -18,7 +20,7 @@ export const loadContent = (path: string) => {
     const content = page.content;
     document.getElementById("app")!.innerHTML = content;
     document.querySelector("#page-style")!.setAttribute("href", page.css);
-    page.eventIntializer();
+    page.eventInitializer();
   } else {
     document.getElementById("app")!.innerHTML =
       "<h1>404 Not Found</h1><p>Page not found.</p>";

@@ -22,7 +22,7 @@ const Signup = () => {
 
     <div class="signup__signup-login">
       <button>Signup</button>
-      <a href="#">Login?</a>
+      <a href="#" id="toLogin">Login?</a>
     </div>
   </div>
 </div>

@@ -18,7 +18,6 @@ export async function up(knex: Knex): Promise<void> {
     table.timestamp("updated_at").nullable();
 
     table.string("file_name", 35).notNullable();
-    table.string("file_path", 80).notNullable();
     table.string("file_type", 30).notNullable();
 
     table

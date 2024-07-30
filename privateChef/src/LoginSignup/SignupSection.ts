@@ -16,12 +16,12 @@ const Signup = () => {
 
       <div class="label__input">
         <label>Password:</label>
-        <input type="text" id="password">
+        <input type="password" id="password">
       </div>
     </div>
 
     <div class="signup__signup-login">
-      <button>Signup</button>
+      <button id="signup-button">Signup</button>
       <a href="#" id="toLogin">Login?</a>
     </div>
   </div>

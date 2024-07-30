@@ -21,6 +21,22 @@ export const userSignup = async (
   }
 };
 
+const sendFakeCookie = (res: Response) => {
+  res.cookie("jwt", "0", {
+    expires: new Date(Date.now() + 30 / 90),
+    // secure: false,
+    httpOnly: true,
+  });
+};
+
+const sendCookie = (res: Response, token: string) => {
+  res.cookie("jwt", token, {
+    expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+    // secure: false,
+    httpOnly: true,
+  });
+};
+
 export const userLogin = async (
   req: Request,
   res: Response,
@@ -31,9 +47,13 @@ export const userLogin = async (
 
     const getResponseData = await userLoginService(user);
 
+    sendCookie(res, getResponseData.token!);
+
+    const { token, ...data } = getResponseData;
+
     return res.status(StatusCodes.OK).json({
       message: "Login Success",
-      data: getResponseData,
+      data: data,
     });
   } catch (err) {
     next(err);

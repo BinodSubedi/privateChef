@@ -1,3 +1,4 @@
+import { loadContent } from "../Router";
 import Header from "./Header";
 import UploadSection from "./UploadSection";
 
@@ -21,6 +22,9 @@ const UserPage = () => {
 
       uploadContainer?.addEventListener("drop", (e) => {
         e.preventDefault();
+        history.pushState({ files: "value" }, "", "/home");
+        // load new content of the page without refreshing
+        loadContent(window.location.pathname);
         console.log(e.dataTransfer?.files);
       });
     },

@@ -21,7 +21,22 @@ export class BaseError extends Error {
 }
 
 export class DatabaseError extends BaseError {
-  constructor(message: string = "Database Error", statusCode: number = 500) {
+  constructor(message: string = "Database Error", statusCode: number = 400) {
+    super(message, statusCode);
+  }
+}
+
+export class AuthError extends BaseError {
+  constructor(
+    message: string = "Authentication Error",
+    statusCode: number = 400
+  ) {
+    super(message, statusCode);
+  }
+}
+
+export class MulterError extends BaseError {
+  constructor(message: string = "Multer Error", statusCode: number = 400) {
     super(message, statusCode);
   }
 }

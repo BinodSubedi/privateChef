@@ -22,6 +22,16 @@ class UserModel extends BaseModel {
     return user;
   }
 
+  static async getUserById(id: number) {
+    const user = await this.queryBuilder()
+      .select("*")
+      .where({ id })
+      .table("User")
+      .first();
+
+    return user;
+  }
+
   static async checkUserExistence(userName: String) {
     const user = await this.queryBuilder()
       .select("*")

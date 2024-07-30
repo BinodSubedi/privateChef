@@ -1,3 +1,5 @@
+import { StatusCodes } from "http-status-codes";
+import axiosConfig from "../axiosConfig";
 import { loadContent } from "../Router";
 import Header from "./Header";
 import UploadSection from "./UploadSection";
@@ -20,12 +22,36 @@ const UserPage = () => {
         e.preventDefault();
       });
 
-      uploadContainer?.addEventListener("drop", (e) => {
+      uploadContainer?.addEventListener("drop", async (e) => {
         e.preventDefault();
-        history.pushState({ files: "value" }, "", "/home");
-        // load new content of the page without refreshing
-        loadContent(window.location.pathname);
-        console.log(e.dataTransfer?.files);
+
+        //Upload Image first, if success pushState new Files Data
+        //Also alert for now
+        //else no change
+
+        try {
+          const formData = new FormData();
+          formData.append("file", e.dataTransfer!.files[0]);
+          const response = await axiosConfig.put("/file/upload", formData, {
+            withCredentials: true,
+          });
+          if (response.status == 201) {
+            alert("Upload Success🚀🚀🚀");
+            const gettingFiles = await axiosConfig.get("/file/getAllFiles", {
+              withCredentials: true,
+            });
+
+            if (gettingFiles.status == StatusCodes.OK) {
+              console.log(gettingFiles.data);
+              history.pushState({ files: gettingFiles.data.data }, "", "/home");
+              // load new content of the page without refreshing
+              loadContent(window.location.pathname);
+            }
+          }
+        } catch (err) {
+          alert("Something went wrong");
+        }
+        //////
       });
     },
     css: "./src/style/mainPage.css",

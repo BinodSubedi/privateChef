@@ -8,6 +8,7 @@ import { File } from "../interface/file";
 
 //Upload File
 
+// multer section start
 const multerStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, `${__dirname}/../../files`);
@@ -37,6 +38,10 @@ const upload = multer({
 
 export const fileUpload = upload.single("file");
 
+// multer section end
+
+// Controller section start
+
 export const uploadFileController = async (
   req: Request,
   res: Response,
@@ -59,6 +64,27 @@ export const uploadFileController = async (
 
     return res.status(StatusCodes.CREATED).json({
       message: "File created",
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getAllUploadedFilesController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const allFiles = await FileModel.getAllFiles(req.user.id);
+
+    if (allFiles == null) {
+      throw new DatabaseError("File all scan error");
+    }
+
+    res.status(StatusCodes.OK).json({
+      message: "Files list fetching success",
+      data: allFiles,
     });
   } catch (err) {
     next(err);

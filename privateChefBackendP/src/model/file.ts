@@ -11,4 +11,18 @@ export class FileModel extends BaseModel {
 
     await this.queryBuilder().insert(fileToCreate).table("File");
   }
+
+  static async getAllFiles(user_id: number): Promise<File[] | null> {
+    let files: File[] | null;
+    try {
+      files = await this.queryBuilder()
+        .select("*")
+        .where({ user_id })
+        .table("File");
+    } catch (err) {
+      files = null;
+    }
+
+    return files;
+  }
 }

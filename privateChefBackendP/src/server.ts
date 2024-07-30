@@ -1,10 +1,13 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import env from "./config";
 import router from "./route";
 import { globalErrorHandler } from "./error/error";
 
 const app = express();
+
+app.use(cookieParser());
 
 app.use(
   cors({

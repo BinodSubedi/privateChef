@@ -7,6 +7,7 @@ export const globalErrorHandler = (
   res: Response,
   next: NextFunction
 ) => {
+  console.log(err.stack);
   return res.status(err.statusCode).json({
     message: err.message,
   });

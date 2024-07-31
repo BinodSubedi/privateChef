@@ -71,13 +71,43 @@ nav {
 }
 
 .nav__right > div {
-  max-height: 3rem;
-  max-width: 3rem;
   height: 80%;
-  width: 30%;
+  width: 25%;
+  min-width: 3rem;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+  cursor: pointer;
+  position: relative;
+}
+
+.profile-options {
+  height: 6rem;
+  width: 6rem;
+  background-color: black;
+  border-radius: 0.3rem;
+  position: absolute;
+  bottom: -5.5rem;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.3rem 0;
+}
+.profile-options p {
+  padding: 0.3rem 0.4rem;
+  border-radius: 0.2rem;
+  color: white;
+}
+
+.profile-button > p {
+  background-color: olivedrab;
+}
+
+.logout-button > p {
+  background-color: brown;
 }
 
 .uploadContainer {
@@ -101,4 +131,90 @@ nav {
 .uploadContainer > h1 {
   position: absolute;
   bottom: 8%;
+}
+
+.uploadedContainer {
+  height: -moz-min-content;
+  height: min-content;
+  min-height: 100%;
+  width: 100%;
+  display: flex;
+  padding: 3rem;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.cardContainer {
+  height: 14rem;
+  width: 14rem;
+  padding: 1rem;
+  margin: 2rem 4rem;
+  border: purple 0.3rem solid;
+  border-radius: 0.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.cardContainer__image {
+  background-position: center;
+  background-size: cover;
+  height: 70%;
+  width: 95%;
+  position: relative;
+}
+
+.card__dots {
+  position: absolute;
+  right: -1.1rem;
+  top: -0.5rem;
+  height: 2rem;
+  width: 2rem;
+  background-position: center;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.card__settings {
+  position: absolute;
+  right: -8.9rem;
+  top: -1.6rem;
+  width: 7rem;
+  height: 8rem;
+  background-color: black;
+  border-radius: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  display: none;
+}
+.card__settings p {
+  color: white;
+  font-size: 1rem;
+  font-weight: bolder;
+  transition: all 0.1s ease-out;
+}
+.card__settings div {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.card__settings div:hover p {
+  transform: scale(1.08);
+  transition: all 0.1s ease-in;
+}
+
+.card__settings > div:not(:first-child) {
+  border-top: 0.01rem beige solid;
+}
+
+.visible {
+  display: flex;
 }

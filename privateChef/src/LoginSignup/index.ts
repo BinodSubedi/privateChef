@@ -146,8 +146,20 @@ const LoginSignup = () => {
               withCredentials: true,
             });
             if (response.status == StatusCodes.OK) {
-              history.pushState({ user: response.data }, "", "/home");
-              loadContent(window.location.pathname);
+              const gettingFiles = await axiosConfig.get("/file/getAllFiles", {
+                withCredentials: true,
+              });
+
+              if (gettingFiles.status == StatusCodes.OK) {
+                console.log(gettingFiles.data);
+                history.pushState(
+                  { files: gettingFiles.data.data },
+                  "",
+                  "/home"
+                );
+                // load new content of the page without refreshing
+                loadContent(window.location.pathname);
+              }
             } else {
               alert("Login Failed🐉🐉");
             }

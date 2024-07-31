@@ -51,7 +51,43 @@ const UserPage = () => {
         } catch (err) {
           alert("Something went wrong");
         }
-        //////
+      });
+
+      const allBlurDots = document.querySelectorAll(".card__dots");
+
+      allBlurDots.forEach((el) => {
+        el.addEventListener("click", () => {
+          const id = el.classList[1].split("-")[1];
+
+          const settings: HTMLDivElement | null = document.querySelector(
+            `.settings-${id}`
+          );
+
+          settings?.classList.toggle("visible");
+        });
+      });
+
+      const allAskBtns = document.querySelectorAll("#ask-button");
+
+      allAskBtns.forEach((el) => {
+        el.addEventListener("click", () => {
+          const fileName = el.getAttribute("data-file-name");
+
+          const fileSpecifier: HTMLInputElement | null =
+            document.querySelector("#fileSpecifier");
+
+          fileSpecifier!.value = fileName!;
+
+          //hide settings after clicking ask
+
+          const id = el.classList[0].split("-")[1];
+
+          const settings: HTMLDivElement | null = document.querySelector(
+            `.settings-${id}`
+          );
+
+          settings?.classList.toggle("visible");
+        });
       });
     },
     css: "./src/style/mainPage.css",

@@ -5,14 +5,25 @@ interface File {
   file_type: string;
 }
 
-const pdfCard = (name: string) => {
+const pdfCard = (name: string, id: number) => {
   return `
   <div class="cardContainer">
   <div class="cardContainer__image" style="background-image:url('./icons/pdf.svg')">
-  <div class="card__settings" style="background-image:url('./icons/three_dots.svg')">
+  <div class="card__dots dots-${id}" style="background-image:url('./icons/three_dots_black.svg')">
   </div>
+  <div class="card__settings settings-${id}">
+  <div id="download-button" data-file-name="${name}">
+   <p >Download</p>
   </div>
-  <h2>${name}</h2>
+  <div id="summarize-button" data-file-name="${name}">
+  <p >Summarize</p>
+  </div>
+  <div id="ask-button" class="ask-${id}" data-file-name="${name}">
+  <p >Ask</p>
+  </div>
+   </div>
+  </div>
+  <h3>${name}</h3>
   </div>
   `;
 };
@@ -29,7 +40,7 @@ const UploadSection = () => {
     `
     : `<div class="uploadedContainer">${state.files
         .map((el: File) => {
-          return pdfCard(el.file_name);
+          return pdfCard(el.file_name, el.id);
         })
         .join("")}
         <div/>

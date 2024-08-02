@@ -5,6 +5,9 @@ import { FileFilterCallback } from "multer";
 import { DatabaseError, MulterError } from "../error/error";
 import { FileModel } from "../model/file";
 import { File } from "../interface/file";
+import FormData from "form-data";
+import fs from "fs";
+import axiosBackendSConfig from "../axiosBackendSConfig";
 
 //Upload File
 
@@ -61,6 +64,20 @@ export const uploadFileController = async (
     };
 
     await FileModel.create(inputVal);
+
+    const formData = new FormData();
+
+    formData.append("file", file.buffer, {
+      filename: file.originalname,
+      contentType: file.mimetype,
+    });
+
+    formData.append("file_name", inputVal.file_name);
+    formData.append("user_id", inputVal.user_id);
+
+    // Not awaited because we don't need to know if it's index or not
+    // We only need to know when asking Question thrugh vectorStore
+    axiosBackendSConfig.put("/uploadIndex", formData);
 
     return res.status(StatusCodes.CREATED).json({
       message: "File created",

@@ -2,6 +2,7 @@ import multer, { FileFilterCallback } from "multer";
 import { Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
 import { indexDocuments } from "../services/llmServices";
+import FileModel from "../model/file";
 
 //Upload File
 
@@ -45,16 +46,20 @@ export const uploadIndexController = async (
   next: NextFunction
 ) => {
   try {
-    console.log(req.body);
-
-    const { user_id, book } = req.body;
+    const { user_id, book, id } = req.body;
 
     await indexDocuments({ user_id, book });
+
+    //Update the value of the document to be indexed
+
+    await FileModel.fileAttributeUpdater(id);
 
     return res.status(StatusCodes.CREATED).json({
       message: "File created",
     });
   } catch (err) {
-    next(err);
+    res.status(400).json({
+      message: "Something went wrong",
+    });
   }
 };

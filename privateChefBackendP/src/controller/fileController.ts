@@ -63,21 +63,37 @@ export const uploadFileController = async (
       file_type: "pdf",
     };
 
-    await FileModel.create(inputVal);
+    const createdFileId = await FileModel.create(inputVal);
 
     const formData = new FormData();
 
-    formData.append("file", file.buffer, {
-      filename: file.originalname,
-      contentType: file.mimetype,
-    });
+    const path = `${__dirname}/../../files`;
 
-    formData.append("file_name", inputVal.file_name);
+    formData.append(
+      "file",
+      fs.createReadStream(path + `/${file.originalname}`),
+      {
+        filename: file.originalname,
+        contentType: file.mimetype,
+      }
+    );
+
+    formData.append("book", inputVal.file_name);
     formData.append("user_id", inputVal.user_id);
+    formData.append("id", createdFileId);
 
     // Not awaited because we don't need to know if it's index or not
     // We only need to know when asking Question thrugh vectorStore
-    axiosBackendSConfig.put("/uploadIndex", formData);
+
+    setImmediate(async () => {
+      try {
+        axiosBackendSConfig.put("/uploadIndex", formData, {
+          headers: formData.getHeaders(),
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    });
 
     return res.status(StatusCodes.CREATED).json({
       message: "File created",

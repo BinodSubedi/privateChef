@@ -10,7 +10,7 @@ const questionRouter = Router();
 
 questionRouter.get("/summary/:book", authenticator, summaryController);
 questionRouter.post(
-  "OverallQuestion",
+  "/overallQuestion",
   authenticator,
   overallQuestionController
 );

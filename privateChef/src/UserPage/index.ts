@@ -3,6 +3,9 @@ import axiosConfig from "../axiosConfig";
 import { loadContent } from "../Router";
 import Header from "./Header";
 import UploadSection from "./UploadSection";
+import { blankFilterLayer } from "../modals/blankFilterLayer";
+import loadingWheel from "../modals/loadingWheel";
+import contentModal from "../modals/contentModal";
 
 const UserPage = () => {
   return {
@@ -15,6 +18,14 @@ const UserPage = () => {
     </main>
     `,
     eventInitializer: () => {
+      // const filter = blankFilterLayer({
+      //   element: contentModal(
+      //     "sdad dasda sada dasda adsad  asdad asdad asdada"
+      //   ),
+      //   cancelCross: true,
+      // });
+      // document.body.removeChild(filter);
+
       const uploadContainer: HTMLDivElement | null =
         document.querySelector(".uploadContainer");
 
@@ -88,6 +99,118 @@ const UserPage = () => {
 
           settings?.classList.toggle("visible");
         });
+      });
+
+      // Submit Questions From Here
+      document
+        .querySelector("#submit-button")
+        ?.addEventListener("click", async (e) => {
+          e.preventDefault();
+
+          const filter = blankFilterLayer({
+            element: loadingWheel(),
+            cancelCross: false,
+          });
+
+          const questionBox: HTMLInputElement | null =
+            document.querySelector("#questionBox");
+
+          const book: HTMLInputElement | null =
+            document.querySelector("#fileSpecifier");
+
+          if (!history.state || !history.state.files) {
+            document.body.removeChild(filter);
+            alert("There are no Files to be Searched through");
+            return;
+          }
+
+          if (questionBox?.value == "" && book?.value == "") {
+            document.body.removeChild(filter);
+
+            alert("First fillup the fields properly");
+            return;
+          }
+
+          if (questionBox?.value != "" && book?.value == "") {
+            try {
+              const resp = await axiosConfig.post(
+                "/question/overallQuestion",
+                {
+                  question: questionBox?.value,
+                },
+                {
+                  withCredentials: true,
+                }
+              );
+
+              blankFilterLayer({
+                element: contentModal(resp.data.data),
+                cancelCross: true,
+              });
+              return;
+            } catch (err) {
+              console.log(err);
+              alert("Something went wrong💣💣");
+            } finally {
+              document.body.removeChild(filter);
+            }
+          } else if (questionBox?.value !== "" && book?.value != "") {
+            try {
+              const resp = await axiosConfig.post(
+                "/question/bookSpecificQuestion",
+                {
+                  question: questionBox?.value,
+                  book: book?.value,
+                },
+                {
+                  withCredentials: true,
+                }
+              );
+
+              blankFilterLayer({
+                element: contentModal(resp.data.data),
+                cancelCross: true,
+              });
+              return;
+            } catch (err) {
+              alert("Something went wrong💣💣");
+            } finally {
+              document.body.removeChild(filter);
+            }
+          }
+        });
+
+      // Summary of Book
+
+      const summarizeButton: HTMLButtonElement | null =
+        document.querySelector("#summarize-button");
+
+      summarizeButton?.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        let filter = blankFilterLayer({
+          element: loadingWheel(),
+          cancelCross: false,
+        });
+
+        const book = summarizeButton.getAttribute("data-file-name");
+
+        try {
+          const resp = await axiosConfig.get(`/question/summary/${book}`, {
+            withCredentials: true,
+          });
+
+          document.body.removeChild(filter);
+
+          filter = blankFilterLayer({
+            element: contentModal(resp.data.data),
+            cancelCross: true,
+          });
+        } catch (err) {
+          document.body.removeChild(filter);
+
+          alert("Something went wrong");
+        }
       });
     },
     css: "./src/style/mainPage.css",

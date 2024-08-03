@@ -83,6 +83,7 @@ nav {
   justify-content: space-around;
   align-items: center;
   padding: 0.3rem 0;
+  z-index: 1;
 
   p {
     padding: 0.3rem 0.4rem;
@@ -203,6 +204,54 @@ nav {
 }
 .card__settings > div:not(:first-child) {
   border-top: 0.01rem beige solid;
+}
+
+.blankFilterCross {
+  right: 8%;
+  top: 50%;
+  transform: translate(50%);
+  height: 3rem;
+  width: 3rem;
+  background-position: center;
+  background-size: cover;
+  background-color: white;
+  border-radius: 0.8rem;
+  z-index: 8;
+  cursor: pointer;
+}
+
+.loading-wheel {
+  height: 6rem;
+  width: 6rem;
+  background-position: center;
+  background-size: cover;
+  // background-color: white;
+  border-radius: 50%;
+}
+
+.content-modal {
+  min-height: 32rem;
+  min-width: 32rem;
+  height: min-content;
+  width: min-content;
+  background-color: beige;
+  color: black;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    height: 80%;
+    width: 80%;
+    line-height: 1.6rem;
+    letter-spacing: 0.1rem;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: larger;
+    font-weight: 600;
+  }
 }
 
 .visible {

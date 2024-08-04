@@ -21,6 +21,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string("file_type", 30).notNullable();
 
     table.boolean("indexed").notNullable().defaultTo(false);
+    table.boolean("shared").notNullable().defaultTo(false);
 
     table
       .foreign("user_id")

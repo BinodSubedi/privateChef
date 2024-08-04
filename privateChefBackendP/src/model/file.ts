@@ -30,4 +30,49 @@ export class FileModel extends BaseModel {
 
     return files;
   }
+
+  static async checkFile(user_id: number, file_name: string): Promise<boolean> {
+    const response = await this.queryBuilder()
+      .select("*")
+      .where({ user_id, file_name })
+      .table("File");
+
+    return response.length == 0 ? false : true;
+  }
+
+  static async shareFile(user_id: number, file_name: string): Promise<boolean> {
+    const response = await this.queryBuilder()
+      .where({ user_id, file_name })
+      .update({ shared: true })
+      .returning("id")
+      .table("File");
+
+    return response.length == 0 ? false : true;
+  }
+
+  static async shareOrNot(
+    user_id: number,
+    file_name: string
+  ): Promise<boolean> {
+    const response = await this.queryBuilder()
+      .where({ user_id, file_name })
+      .returning("*")
+      .table("File")
+      .first();
+
+    return response.shared;
+  }
+
+  static async makeUnshareable(
+    user_id: number,
+    file_name: string
+  ): Promise<boolean> {
+    const response = await this.queryBuilder()
+      .where({ user_id, file_name })
+      .update({ shared: false })
+      .returning("id")
+      .table("File");
+
+    return response.length == 0 ? false : true;
+  }
 }

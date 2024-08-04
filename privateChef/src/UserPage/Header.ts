@@ -12,7 +12,7 @@ const Header = () => {
   <div class="profile" style="background-image:url('./icons/profile.svg')">
   <div class="profile-options">
   <div class="logout-button">
-  <p>
+  <p id="logout">
   Log-Out
   </p>
   </div>

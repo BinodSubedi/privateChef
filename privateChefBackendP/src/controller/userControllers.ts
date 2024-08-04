@@ -59,3 +59,33 @@ export const userLogin = async (
     next(err);
   }
 };
+
+export const userLogout = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    sendFakeCookie(res);
+
+    res.status(200).json({
+      message: "Logged Out",
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const pushLogin = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    res.status(200).json({
+      message: "success",
+    });
+  } catch (err) {
+    next(err);
+  }
+};

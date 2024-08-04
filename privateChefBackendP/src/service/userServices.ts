@@ -22,7 +22,7 @@ export const userLoginService = async (user: UserLogin): Promise<User> => {
     throw new DatabaseError("User doesnot exist");
   }
 
-  console.log("user:::", requiredUser);
+  // console.log("user:::", requiredUser);
 
   if (!(await passwordComparer(user.password, requiredUser.password))) {
     throw new DatabaseError("Wrong Credentials");

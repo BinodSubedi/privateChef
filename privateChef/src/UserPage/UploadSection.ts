@@ -12,19 +12,19 @@ const pdfCard = (name: string, id: number) => {
   <div class="card__dots dots-${id}" style="background-image:url('./icons/three_dots_black.svg')">
   </div>
   <div class="card__settings settings-${id}">
-  <div id="download-button" data-file-name="${name}">
+  <div id="download-button" data-file-name="${name}" data-id="${id}">
    <p >Download</p>
   </div>
-  <div id="share-button" data-file-name="${name}">
+  <div id="share-button" data-file-name="${name}" data-id="${id}">
   <p >Share</p>
   </div>
-  <div id="quickView-button" data-file-name="${name}">
+  <div id="quickView-button" data-file-name="${name}" data-id="${id}">
   <p >Quick View</p>
   </div>
-  <div id="summarize-button" data-file-name="${name}">
+  <div id="summarize-button" data-file-name="${name}" data-id="${id}">
   <p >Summarize</p>
   </div>
-  <div id="ask-button" class="ask-${id}" data-file-name="${name}">
+  <div id="ask-button" class="ask-${id}" data-file-name="${name}" data-id="${id}">
   <p >Ask</p>
   </div>
    </div>
@@ -44,11 +44,16 @@ const UploadSection = () => {
         <h1>Drop Here</h1>
       </div>
     `
-    : `<div class="uploadedContainer">${state.files
-        .map((el: File) => {
-          return pdfCard(el.file_name, el.id);
-        })
-        .join("")}
+    : `<div class="uploadedContainer">
+    <div class="upload-button" style="position:absolute;background-image:url('./icons/add-button.svg')">
+    <input type="file" id="upload-input" />
+    </div>
+    
+    ${state.files
+      .map((el: File) => {
+        return pdfCard(el.file_name, el.id);
+      })
+      .join("")}
         <div/>
         `;
 };

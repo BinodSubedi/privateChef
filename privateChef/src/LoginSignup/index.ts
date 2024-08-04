@@ -20,7 +20,30 @@ const LoginSignup = () => {
    </div>
    </main> 
     `,
-    eventInitializer: () => {
+    eventInitializer: async () => {
+      //Push-Login check
+
+      try {
+        const response = await axiosConfig.get("/user/pushLogin", {
+          withCredentials: true,
+        });
+
+        if (response.status == 200) {
+          const gettingFiles = await axiosConfig.get("/file/getAllFiles", {
+            withCredentials: true,
+          });
+
+          if (gettingFiles.status == 200) {
+            console.log(gettingFiles.data);
+            history.pushState({ files: gettingFiles.data.data }, "", "/home");
+            // load new content of the page without refreshing
+            loadContent(window.location.pathname);
+          }
+        }
+      } catch (err) {}
+
+      ///
+
       const toLogin: HTMLAnchorElement | null =
         document.querySelector("#toLogin");
       const toSignup: HTMLAnchorElement | null =

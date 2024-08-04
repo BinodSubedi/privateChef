@@ -2,7 +2,12 @@ import multer from "multer";
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { FileFilterCallback } from "multer";
-import { AuthError, DatabaseError, MulterError } from "../error/error";
+import {
+  AuthError,
+  DatabaseError,
+  DownloadResponseError,
+  MulterError,
+} from "../error/error";
 import { FileModel } from "../model/file";
 import { File } from "../interface/file";
 import FormData from "form-data";
@@ -185,7 +190,35 @@ export const getShareDownloadController = async (
 
     await FileModel.makeUnshareable(+decoded.id, decoded.book);
 
-    res.download(`${__dirname}/../../files/rvalp.pdf`, (err) => {
+    res.download(`${__dirname}/../../files/${decoded.book}`, (err) => {
+      if (err) {
+        return res.status(400).json({
+          message: "Something went wrong",
+        });
+      }
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const downloadFileController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { book } = req.params;
+
+    const { id } = req.user;
+
+    const resp = await FileModel.checkFile(id, book);
+
+    if (!resp) {
+      throw new DatabaseError("Specific File not found");
+    }
+
+    res.download(`${__dirname}/../../files/${book}`, (err) => {
       if (err) {
         return res.status(400).json({
           message: "Something went wrong",

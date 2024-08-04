@@ -212,6 +212,79 @@ const UserPage = () => {
           alert("Something went wrong");
         }
       });
+
+      // Share File
+      // Copy link to clipboard and alert
+
+      const shareButton: HTMLDivElement | null =
+        document.querySelector("#share-button");
+
+      shareButton?.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        const file_name = shareButton.getAttribute("data-file-name");
+
+        try {
+          const response = await axiosConfig.get(`/file/share/${file_name}`, {
+            withCredentials: true,
+          });
+
+          if (response.status == 200) {
+            document
+              .querySelector(".card__settings")
+              ?.classList.toggle("visible");
+            navigator.clipboard.writeText(response.data.url);
+
+            alert("Link Copied to the clipboard");
+          } else {
+            alert("Something went wrong");
+          }
+        } catch (err) {
+          alert("Something went wrong");
+        }
+      });
+
+      //Download File
+
+      const downloadButton: HTMLDivElement | null =
+        document.querySelector("#download-button");
+
+      downloadButton?.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        const file_name = downloadButton.getAttribute("data-file-name");
+
+        try {
+          const response = await axiosConfig.get(
+            `/file/download/${file_name}`,
+            {
+              withCredentials: true,
+              responseType: "blob",
+            }
+          );
+
+          if (response.status == 200) {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const a = document.createElement("a");
+            a.style.display = "none";
+            a.href = url;
+            console.log(response.data);
+            a.download = file_name!; // Set the downloaded file name
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+          } else {
+            alert("Something went wrong");
+          }
+        } catch (err) {
+          alert("Something went wrong");
+        } finally {
+          // Hide the card options
+          document
+            .querySelector(".card__settings")
+            ?.classList.toggle("visible");
+        }
+      });
     },
     css: "./src/style/mainPage.css",
   };

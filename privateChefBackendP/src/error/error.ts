@@ -7,7 +7,7 @@ export const globalErrorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  // console.log(err.stack);
+  console.log(err.stack);
   return res.status(err.statusCode).json({
     message: err.message,
   });
@@ -39,6 +39,15 @@ export class AuthError extends BaseError {
 export class MulterError extends BaseError {
   constructor(message: string = "Multer Error", statusCode: number = 400) {
     super(message, statusCode);
+  }
+}
+
+export class DownloadResponseError extends BaseError {
+  constructor(
+    message: string = "Download response failed",
+    statusCode: number = 404
+  ) {
+    super(message, 404);
   }
 }
 

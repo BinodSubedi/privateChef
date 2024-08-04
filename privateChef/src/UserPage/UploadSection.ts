@@ -15,6 +15,12 @@ const pdfCard = (name: string, id: number) => {
   <div id="download-button" data-file-name="${name}">
    <p >Download</p>
   </div>
+  <div id="share-button" data-file-name="${name}">
+  <p >Share</p>
+  </div>
+  <div id="quickView-button" data-file-name="${name}">
+  <p >Quick View</p>
+  </div>
   <div id="summarize-button" data-file-name="${name}">
   <p >Summarize</p>
   </div>

@@ -52,6 +52,10 @@ main {
   height: 100%;
   display: flex;
 }
+.login__signup-all h1 {
+  border-bottom: 0.1rem beige solid;
+  padding-bottom: 0.4rem;
+}
 
 .signup__container {
   width: 50%;
@@ -84,6 +88,10 @@ main {
   justify-content: space-evenly;
 }
 
+.login__inner {
+  justify-content: space-around;
+}
+
 .login__label-input,
 .signup__label-input {
   height: 80%;
@@ -93,11 +101,17 @@ main {
   align-items: center;
 }
 
+.login__label-input {
+  height: 70%;
+  padding: 2rem 0;
+}
+
 .label__input {
   display: flex;
   flex-direction: column;
 }
 .label__input label {
+  font-size: 1.3rem;
   margin-bottom: 1rem;
 }
 .label__input input {
@@ -115,13 +129,22 @@ main {
 }
 .login__login-signup button,
 .signup__signup-login button {
-  margin-bottom: 0.6rem;
+  margin: 0.8rem 0 1.2rem;
   padding: 0.3rem 1rem;
   border-radius: 0.3rem;
+  font-size: 1.2rem;
   border: none;
 }
 .login__login-signup a,
 .signup__signup-login a {
   text-decoration: none;
   color: black;
+}
+
+.login__login-signup {
+  margin-top: -2rem;
+}
+
+.login__container {
+  justify-content: center;
 }

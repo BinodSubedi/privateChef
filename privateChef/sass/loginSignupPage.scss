@@ -36,6 +36,11 @@ main {
   width: 200%;
   height: 100%;
   display: flex;
+
+  h1 {
+    border-bottom: 0.1rem beige solid;
+    padding-bottom: 0.4rem;
+  }
 }
 
 .signup__container {
@@ -69,6 +74,10 @@ main {
   justify-content: space-evenly;
 }
 
+.login__inner {
+  justify-content: space-around;
+}
+
 .login__label-input,
 .signup__label-input {
   height: 80%;
@@ -78,11 +87,17 @@ main {
   align-items: center;
 }
 
+.login__label-input {
+  height: 70%;
+  padding: 2rem 0;
+}
+
 .label__input {
   display: flex;
   flex-direction: column;
 
   label {
+    font-size: 1.3rem;
     margin-bottom: 1rem;
   }
   input {
@@ -100,13 +115,25 @@ main {
   align-items: center;
 
   button {
-    margin-bottom: 0.6rem;
+    margin: 0.8rem 0 1.2rem;
     padding: 0.3rem 1rem;
     border-radius: 0.3rem;
+    font-size: 1.2rem;
     border: none;
   }
   a {
     text-decoration: none;
     color: black;
   }
+}
+
+.login__login-signup {
+  margin-top: -2rem;
+  // button {
+  //   margin-bottom: 1.2rem;
+  // }
+}
+
+.login__container {
+  justify-content: center;
 }
